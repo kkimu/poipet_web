@@ -2,8 +2,8 @@
 
 ini_set('display_errors',1);
 
-# GETでnameとpassを受け取る
-$name = (string)$_GET['name'];
+# GETでidを受け取る
+$id = (string)$_GET['id'];
 
 # MySQLに接続
 $mysqli = new mysqli("localhost", "root", "poi", "poipet");
@@ -14,8 +14,7 @@ if ($mysqli->connect_errno) {
 }
 
 # nameが存在するか確認
-$result1 = $mysqli->query("SELECT user_id from users where user_name='${name}'");
-$user_id = NULL;
+$result1 = $mysqli->query("SELECT user_id from users where user_id='${id}'");
 if($row = $result1->fetch_assoc()){
     $user_id = $row['user_id'];
 }else{
