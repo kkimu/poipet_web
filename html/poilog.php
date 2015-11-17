@@ -26,9 +26,10 @@ $result1->close();
 
 
 # xml生成
-$rootNode = new SimpleXMLElement("<?xml version='1.0' encoding='UTF-8' standalone='yes' ?><pois></pois>");
+$rootNode = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8" ?><pois></pois>');
 # ユーザのポイログを取得
-$result2 = $mysqli->query("SELECT * FROM pois LEFT JOIN poipets ON pois.poipet_id = poipets.poipet_id WHERE user_id='${user_id} order by date'");
+$result2 = $mysqli->query("SELECT * FROM pois LEFT JOIN poipets ON pois.poipet_id = poipets.poipet_id WHERE user_id='${user_id}' ORDER BY date");
+
 while($row = $result2->fetch_assoc()){
     $itemNode = $rootNode->addChild('poi');
     $itemNode->addChild('poi_id',$row['poi_id']);
@@ -48,7 +49,7 @@ while($row = $result2->fetch_assoc()){
 $result2->close();
  
 # xmlを整形
-$dom = new DOMDocument( '1.0' );
+$dom = new DOMDocument( '1.0', 'UTF-8');
 $dom->loadXML( $rootNode->asXML() );
 $dom->formatOutput = true;
 # xmlを出力
