@@ -1,5 +1,8 @@
 <?php
-ini_set('display_errors',1); 
+#ini_set('display_errors',1);
+#ini_set('default_charset', 'Shift_JIS');
+/* 現在の内部文字エンコーディングを表示 */
+#echo mb_internal_encoding();
 
 # MySQLに接続
 $mysqli = new mysqli("localhost", "root", "poi", "poipet");
@@ -24,6 +27,7 @@ if (strlen($_POST['felica_id'])){
 $result1 = $mysqli->query("SELECT * FROM users WHERE user_id = '${felica_id}'");
 if($row1 = $result1->fetch_assoc()){
     $user_name = $row1['user_name'];
+    #$user_name_sjis = mb_convert_encoding($user_name,"SJIS","UTF-8");
     echo "user_name=",$user_name;
     exit();
 }

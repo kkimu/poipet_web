@@ -44,7 +44,9 @@ while($row = $result2->fetch_assoc()){
     $itemNode->addChild('month',$date[1]);
     $itemNode->addChild('day',$date[2]);
     $itemNode->addChild('time',$datetime[1]);
+    $itemNode->addChild('bottle',$row['bottle']);
     $itemNode->addChild('cap',$row['cap']);
+    $itemNode->addChild('label',$row['label']);
 }
 $result2->close();
  
