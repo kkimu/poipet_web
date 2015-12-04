@@ -15,9 +15,10 @@ if ($mysqli->connect_errno) {
 $mysqli->query('SET NAMES utf8'); // 日本語設定
 
 # nameが存在するか確認
-$result1 = $mysqli->query("SELECT user_id from users where user_id='${id}'");
+$result1 = $mysqli->query("SELECT * from users where user_id='${id}'");
 if($row = $result1->fetch_assoc()){
     $user_id = $row['user_id'];
+    $user_name = $row['user_name'];
 }else{
     printf("user does not exist");
     exit();
@@ -30,6 +31,7 @@ $rootNode = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8" ?><pois><
 # ユーザのポイログを取得
 $result2 = $mysqli->query("SELECT * FROM pois LEFT JOIN poipets ON pois.poipet_id = poipets.poipet_id WHERE user_id='${user_id}' ORDER BY date");
 
+$rootNode->addChild('user_name',$user_name);
 while($row = $result2->fetch_assoc()){
     $itemNode = $rootNode->addChild('poi');
     $itemNode->addChild('poi_id',$row['poi_id']);
@@ -49,7 +51,6 @@ while($row = $result2->fetch_assoc()){
     $itemNode->addChild('label',$row['label']);
 }
 $result2->close();
- 
 # xmlを整形
 $dom = new DOMDocument( '1.0', 'UTF-8');
 $dom->loadXML( $rootNode->asXML() );
