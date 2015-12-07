@@ -1,7 +1,7 @@
 var locations = [
-  [35.6722764, 139.6956099, 80, "<b>代々木公園</b><p>現在のペットボトル本数：42本<br />もうすぐ回収！<br />最終回収日時：11/17 16:30</p>"],
-  [35.6745095, 139.7148602, 0, "<b>明治神宮野球場</b><p>現在のペットボトル本数：3本<br />最終回収日時：11/18 15:48</p>"],
-  [35.6591041, 139.7015533, 20, "<b>渋谷ヒカリエ</b><p>現在のペットボトル本数：12本<br />最終回収日時：11/18 12:23</p>"]
+  [36.108338,140.0998398, 80, "<b>総合研究棟B</b><p>現在のペットボトル本数：42本<br />もうすぐ回収！<br />最終回収日時：11/17 16:30</p>"],
+  [36.106528, 140.065810, 0, "<b>ゆかりの森</b><p>現在のペットボトル本数：3本<br />最終回収日時：11/18 15:48</p>"],
+  [36.086693,140.108409, 20, "<b>つくばエキスポセンター</b><p>現在のペットボトル本数：12本<br />最終回収日時：11/18 12:23</p>"]
 ];
 var icon0 = new google.maps.MarkerImage('img/s_label0-20.png',
     new google.maps.Size(29,42),
@@ -29,7 +29,7 @@ var infoWindows = [];
 var currentWindow = null;
 
 function initialize() {
-  var latlng = new google.maps.LatLng(35.6674826,139.7004379);
+  var latlng = new google.maps.LatLng(36.099142, 140.086731);
   var myOptions = {
     zoom: 14,
     center: latlng,
@@ -104,14 +104,18 @@ function initialize() {
       for(var i = 0; i < markers.length; i++) {
         if(i == $(this).attr("data-id")) {
           infoWindows[i].open(map, markers[i]);
+          currentWindow = infoWindows[i];
         } else {
           infoWindows[i].close();
         }
       }
       return false;
     });
+  });
+  $(function() {
     for(var i = 0; i < markers.length; i++) {
       if(locations[i][2] = 80){
+        // $("a[data-id="+i+"]").css("background-color", "#FFE7C1");
         if($(".span4 a").attr("data-id") == i){
           $("#span4-right").css("background-color", "#FFE7C1");
           // $("#span4-right h4").append("<max>もうすぐ回収！</max>");
